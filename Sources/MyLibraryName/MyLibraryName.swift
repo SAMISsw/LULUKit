@@ -280,13 +280,6 @@ struct DrawingViewRepresentable: UIViewRepresentable {
         }
     }
 }
-struct NewView: View {
-    var body: some View {
-        VStack {
-            ContentView()
-        }
-    }
-}
 struct CGPointWrapper: Hashable {
     let location: CGPoint
     
