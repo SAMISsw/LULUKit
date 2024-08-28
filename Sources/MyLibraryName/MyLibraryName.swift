@@ -283,7 +283,8 @@ struct DrawingViewRepresentable: UIViewRepresentable {
 
 struct NewView: View {
     var body: some View {
-        Text("Novo Conteúdo Aqui")
+        // Nomeie a sua View principal como MyView()
+        MyView()
     }
 }
 struct CGPointWrapper: Hashable {
