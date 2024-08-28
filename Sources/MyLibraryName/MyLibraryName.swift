@@ -3,7 +3,7 @@ import PencilKit
 import AVFoundation
 import Speech
 
-struct C3: View {
+public struct C3: View {
     @State private var isTestPassed = false
     @State private var navigateToDrawingView = false
     @State private var currentShape: String = ""
@@ -12,7 +12,7 @@ struct C3: View {
     @State private var toolPicker = PKToolPicker()
     let synthesizer = AVSpeechSynthesizer()
     
-    var body: some View {
+public    var body: some View {
         NavigationView {
             VStack {
                 if !isTestPassed {
@@ -61,7 +61,7 @@ struct C3: View {
         }
     }
     
-    func generateRandomQuestion() {
+   public func generateRandomQuestion() {
         let shapes = ["círculo", "retângulo", "triângulo", "linha"]
         let questions = [
             "Desenhe um círculo.",
