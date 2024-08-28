@@ -3,7 +3,7 @@ import PencilKit
 import AVFoundation
 import Speech
 
-struct ContentView: View {
+struct C3: View {
     @State private var isTestPassed = false
     @State private var navigateToDrawingView = false
     @State private var currentShape: String = ""
@@ -280,7 +280,13 @@ struct DrawingViewRepresentable: UIViewRepresentable {
         }
     }
 }
- // Nomeie a sua View principal como NewView()
+struct NewView: View {
+    var body: some View {
+        VStack {
+            ContentView()
+        }
+    }
+}
 struct CGPointWrapper: Hashable {
     let location: CGPoint
     
