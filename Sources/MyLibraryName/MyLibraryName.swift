@@ -280,13 +280,7 @@ struct DrawingViewRepresentable: UIViewRepresentable {
         }
     }
 }
-
-struct NewView: View {
-    var body: some View {
-        // Nomeie a sua View principal como MyView()
-        MyView()
-    }
-}
+ // Nomeie a sua View principal como NewView()
 struct CGPointWrapper: Hashable {
     let location: CGPoint
     
