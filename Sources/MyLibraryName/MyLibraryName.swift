@@ -286,9 +286,15 @@ struct NewView: View {
         Text("Novo Conteúdo Aqui")
     }
 }
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+struct CGPointWrapper: Hashable {
+    let location: CGPoint
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(location.x)
+        hasher.combine(location.y)
+    }
+    
+    static func == (lhs: CGPointWrapper, rhs: CGPointWrapper) -> Bool {
+        return lhs.location == rhs.location
     }
 }
