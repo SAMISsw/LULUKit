@@ -288,3 +288,15 @@ public struct NewView: View {
         ContentView()
     }
 }
+public struct CGPointWrapper: Hashable {
+    let location: CGPoint
+    
+   public func hash(into hasher: inout Hasher) {
+        hasher.combine(location.x)
+        hasher.combine(location.y)
+    }
+    
+   public static func == (lhs: CGPointWrapper, rhs: CGPointWrapper) -> Bool {
+        return lhs.location == rhs.location
+    }
+}
