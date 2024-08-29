@@ -12,7 +12,7 @@ public struct C3: View {
     @State private var toolPicker = PKToolPicker()
     let synthesizer = AVSpeechSynthesizer()
     
-public    var body: some View {
+public var body: some View {
         NavigationView {
             VStack {
                 if !isTestPassed {
@@ -78,7 +78,7 @@ public    var body: some View {
     }
 }
 
-struct DrawingView: View {
+public struct DrawingView: View {
     @Binding var drawingView: PKCanvasView
     @Binding var toolPicker: PKToolPicker
     @Binding var currentShape: String
@@ -91,7 +91,7 @@ struct DrawingView: View {
     @State private var showingAlert = false
     @State private var alertMessage = ""
     
-    var body: some View {
+ public   var body: some View {
         VStack {
             Text("꒒ꀎ꒒ꀎ")
                 .font(.custom("Noteworthy", size: 40))
@@ -166,7 +166,7 @@ struct DrawingView: View {
         }
     }
     
-    func checkShape() -> Bool {
+  public  func checkShape() -> Bool {
         let strokes = drawingView.drawing.strokes
         guard strokes.count == 1, let firstStroke = strokes.first else { return false }
         
@@ -184,7 +184,7 @@ struct DrawingView: View {
         }
     }
     
-    func isApproximateCircle(_ stroke: PKStroke) -> Bool {
+   public func isApproximateCircle(_ stroke: PKStroke) -> Bool {
         let boundingRect = boundingBox(for: stroke)
         let width = boundingRect.width
         let height = boundingRect.height
@@ -193,7 +193,7 @@ struct DrawingView: View {
         return abs(aspectRatio - 1.0) < 0.2 && (width * height) > 1000
     }
     
-    func isApproximateRectangle(_ stroke: PKStroke) -> Bool {
+   public func isApproximateRectangle(_ stroke: PKStroke) -> Bool {
         let boundingRect = boundingBox(for: stroke)
         let width = boundingRect.width
         let height = boundingRect.height
@@ -202,19 +202,19 @@ struct DrawingView: View {
         return (abs(aspectRatio - 1.0) < 0.2 || abs(aspectRatio - 2.0) < 0.2) && (width * height) > 1000
     }
     
-    func isApproximateTriangle(_ stroke: PKStroke) -> Bool {
+   public func isApproximateTriangle(_ stroke: PKStroke) -> Bool {
         let points = stroke.path.map { CGPointWrapper(location: $0.location) }
         let uniquePoints = Set(points)
         return uniquePoints.count >= 3
     }
     
-    func isApproximateLine(_ stroke: PKStroke) -> Bool {
+  public  func isApproximateLine(_ stroke: PKStroke) -> Bool {
         let points = stroke.path.map { CGPointWrapper(location: $0.location) }
         
         return points.count >= 2
     }
     
-    func boundingBox(for stroke: PKStroke) -> CGRect {
+  public  func boundingBox(for stroke: PKStroke) -> CGRect {
         let path = stroke.path
         var minX: CGFloat = .infinity
         var maxX: CGFloat = -.infinity
@@ -233,12 +233,12 @@ struct DrawingView: View {
         return CGRect(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
     }
     
-    func showAlert(message: String) {
+   public func showAlert(message: String) {
         alertMessage = message
         showingAlert = true
     }
     
-    func configureToolPicker() {
+  public  func configureToolPicker() {
         if let window = UIApplication.shared.windows.first {
             toolPicker.setVisible(true, forFirstResponder: drawingView)
             toolPicker.addObserver(drawingView)
@@ -247,48 +247,48 @@ struct DrawingView: View {
     }
 }
 
-struct DrawingViewRepresentable: UIViewRepresentable {
+public struct DrawingViewRepresentable: UIViewRepresentable {
     @Binding var canvasView: PKCanvasView
     @Binding var toolPicker: PKToolPicker
     var onUpdate: () -> Void
     
-    func makeUIView(context: Context) -> PKCanvasView {
+  public  func makeUIView(context: Context) -> PKCanvasView {
         canvasView.delegate = context.coordinator
         toolPicker.addObserver(canvasView)
         canvasView.tool = toolPicker.selectedTool
         return canvasView
     }
     
-    func updateUIView(_ uiView: PKCanvasView, context: Context) {
+   public func updateUIView(_ uiView: PKCanvasView, context: Context) {
         uiView.tool = toolPicker.selectedTool
         onUpdate()
     }
     
-    func makeCoordinator() -> Coordinator {
+    public func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
     
-    class Coordinator: NSObject, PKCanvasViewDelegate {
+ public   class Coordinator: NSObject, PKCanvasViewDelegate {
         var parent: DrawingViewRepresentable
         
-        init(_ parent: DrawingViewRepresentable) {
+       public init(_ parent: DrawingViewRepresentable) {
             self.parent = parent
         }
         
-        func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+       public func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
             parent.onUpdate()
         }
     }
 }
-struct CGPointWrapper: Hashable {
+public struct CGPointWrapper: Hashable {
     let location: CGPoint
     
-    func hash(into hasher: inout Hasher) {
+   public func hash(into hasher: inout Hasher) {
         hasher.combine(location.x)
         hasher.combine(location.y)
     }
     
-    static func == (lhs: CGPointWrapper, rhs: CGPointWrapper) -> Bool {
+   public static func == (lhs: CGPointWrapper, rhs: CGPointWrapper) -> Bool {
         return lhs.location == rhs.location
     }
 }
