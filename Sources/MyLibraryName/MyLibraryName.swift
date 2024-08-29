@@ -1,4 +1,4 @@
-// Leia a description
+// O Nome sa sua view principal deve ser ContentView
 
 import SwiftUI
 import PencilKit
@@ -285,8 +285,6 @@ public struct DrawingViewRepresentable: UIViewRepresentable {
 
 public struct NewView: View {
     public var body: some View {
-        Text("Nova Visão")
-            .font(.title)
-            .padding()
+        ContentView()
     }
 }
